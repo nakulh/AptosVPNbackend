@@ -1,0 +1,9 @@
+{
+  "walletKey": "0x55c36d3a4ecaaa12daf030b099d2b4feb8b0ed41fddb0d9a0c47bb98e46cf155",
+  "VPNConfiguration": {
+    "vpnObj": "0x335710c6e8b956449b2aa563b5167925ed9466d75ec02e9f929f9354dd57f73f",
+    "address": "136.185.209.11:51820"
+  },
+  "wireguardConfigPath": "",
+  "vpnClients": {}
+}
