@@ -7,7 +7,7 @@ import { isWireGuardInstalled } from './wireguardConfig.js';
 import { installPiVpn } from '../accessors/piVpn.js';
 export async function initBoot() {
 
-    if (!isWireGuardInstalled()) {
+    if (!(await isWireGuardInstalled())) {
         console.log('installing vpn server, this will take a while...');
         try {
             await installPiVpn();
