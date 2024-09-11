@@ -58,7 +58,7 @@ export function getPiVpnVersion() {
 
 export function installPiVpn() {
     return new Promise((resolve, reject) => {
-        exec('./piVPNInstall.sh --unattended piVPNWireguard.conf', (error, stdout, stderr) => {
+        exec('chmod +x ./accessors/piVPNInstall.sh', (error, stdout, stderr) => {
             if(error) {
                 console.log(error);
                 reject(error);
@@ -69,7 +69,19 @@ export function installPiVpn() {
                 return;
             }
             console.log(`stdout: ${stdout}`);
-            resolve(stdout);
+            exec('./accessors/piVPNInstall.sh --unattended ./accessors/piVPNWireguard.conf', (error, stdout, stderr) => {
+                if(error) {
+                    console.log(error);
+                    reject(error);
+                };
+                if (stderr) {
+                    console.log(`stderr: ${stderr}`);
+                    reject(new Error(stderr));
+                    return;
+                }
+                console.log(`stdout: ${stdout}`);
+                resolve(stdout);
+            });
         });
     });
 }
