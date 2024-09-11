@@ -1,5 +1,5 @@
 import { Account, Aptos, AptosConfig, Network, Ed25519PrivateKey } from "@aptos-labs/ts-sdk";
-const config = new AptosConfig({ network: Network.TESTNET });
+const config = new AptosConfig({ network: process.env.APTOS_ENVIRONEMNT });
 const aptos = new Aptos(config);
 
 export function createNewWallet() {
@@ -48,7 +48,22 @@ export function getAddressFromPrivateKey(walletPrivateKey) {
       console.error('Error getting Aptos address:', error);
       return null;
     }
-  }
+}
+
+export async function fundAccountIfPossible(walletPrivateKey) {
+    if (config.network === Network.MAINNET) {
+        console.log("deployed on mainnet, so wont get gas from faucet");
+        return new Promise((resolve, reject) => {
+            resolve(true);
+        });
+    }
+    console.log("funding account with some gas");
+    const account = getAccountFromPrivateKey(walletPrivateKey);
+    return await aptos.fundAccount({
+        accountAddress: account.accountAddress,
+        amount: 100_000_000,
+    });
+}
 
 async function processTransaction(account, payload) {
     console.log("payload for transaction " + JSON.stringify(payload));

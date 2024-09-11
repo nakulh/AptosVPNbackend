@@ -1,5 +1,5 @@
 import { JSONFileSyncPreset } from 'lowdb/node';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 const db = JSONFileSyncPreset('db.json', { walletKey: "", VPNConfiguration: { vpnObj: "", address: "" }, wireguardConfigPath: "", vpnClients: {}});
 

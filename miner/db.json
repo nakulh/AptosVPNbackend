@@ -5,5 +5,9 @@
     "address": "136.185.209.11:51820"
   },
   "wireguardConfigPath": "",
-  "vpnClients": {}
+  "vpnClients": {
+    "0xaa4889db72049a54e31c65df276e717a8961e3b1486f917e15a60f01ecd87278": {
+      "endTime": "2024-08-23T09:12:40+05:30"
+    }
+  }
 }

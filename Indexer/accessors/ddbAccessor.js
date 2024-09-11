@@ -1,6 +1,6 @@
 import AWS from 'aws-sdk';
 AWS.config.update({ region: "ca-central-1" });
-const ddb = new AWS.DynamoDB.DocumentClient()
+const ddb = new AWS.DynamoDB.DocumentClient();
 
 export const getAllVPNProviders = () => {
     const params = {
@@ -45,6 +45,23 @@ export const updateVPNProvider = (objectId, address) => {
         UpdateExpression: "set address = :address",
         ExpressionAttributeValues: {
           ":address": address,
+        },
+        ReturnValues: "ALL_NEW",
+      };
+    
+      const promise = ddb.update(updateVpnProviderParams).promise();
+      return promise;
+}
+
+export const updateVPNProviderHealth = (objectId, health) => {
+    const updateVpnProviderParams = {
+        TableName: "VpnProviderHealth",
+        Key: {
+            objectId
+        },
+        UpdateExpression: "set health = :health",
+        ExpressionAttributeValues: {
+          ":health": health,
         },
         ReturnValues: "ALL_NEW",
       };

@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import {getAllVPNProviders} from './accessors/ddbAccessor.js';
 
 const app = express();
-const port = 3000;
+const port = 5000;
 
 app.use(morgan('combined'));
 app.use(bodyParser.json({limit: '2mb', type: 'application/json'}));

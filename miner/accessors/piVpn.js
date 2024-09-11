@@ -1,31 +1,75 @@
 // create new wireguard config per device
 // delete old configs after time passes
 import { exec } from 'child_process';
-export function createClientConfig(clientId, cb) {
-    exec('pivpn add -n %s' % clientId, (error, stdout, stderr) => {
-        if(error) {
-            console.log(error);
-            throw error;
-        };
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-        cb(clientId);
+export function createClientConfig(clientId) {
+    return new Promise((resolve, reject) => {
+        exec(`pivpn add -n ${clientId}`, (error, stdout, stderr) => {
+            if(error) {
+                console.log(error);
+                reject(error);
+            };
+            if (stderr) {
+                console.log(`stderr: ${stderr}`);
+                reject(new Error(stderr));
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
+            resolve(clientId);
+        });
     });
+    
 }
 
 export function deleteClientConfig(clientId) {
-    exec('pivpn remove %s -y' % clientId, (error, stdout, stderr) => {
-        if(error) {
-            console.log(error);
-            throw error;
-        };
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
+    return new Promise((resolve, reject) => {
+        exec(`pivpn remove ${clientId} -y`, (error, stdout, stderr) => {
+            if(error) {
+                console.log(error);
+                reject(error);
+            };
+            if (stderr) {
+                console.log(`stderr: ${stderr}`);
+                reject(new Error(stderr));
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
+            resolve(clientId);
+        });
+    });
+}
+
+export function getPiVpnVersion() {
+    return new Promise((resolve, reject) => {
+        exec('pivpn -v', (error, stdout, stderr) => {
+            if(error) {
+                console.log(error);
+                reject(error);
+            };
+            if (stderr) {
+                console.log(`stderr: ${stderr}`);
+                reject(new Error(stderr));
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
+            resolve(stdout.trim());
+        });
+    });
+}
+
+export function installPiVpn() {
+    return new Promise((resolve, reject) => {
+        exec('curl -L https://install.pivpn.io | bash', (error, stdout, stderr) => {
+            if(error) {
+                console.log(error);
+                reject(error);
+            };
+            if (stderr) {
+                console.log(`stderr: ${stderr}`);
+                reject(new Error(stderr));
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
+            resolve(stdout);
+        });
     });
 }
