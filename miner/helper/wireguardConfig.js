@@ -39,7 +39,7 @@ async function deleteVpnClient(clientId) {
 
 export async function isWireGuardInstalled() {
     try {
-        await getPiVPNVersion();
+        await getPiVpnVersion();
         return true;
     } catch (err) {
         console.log("pivpn not installed");
