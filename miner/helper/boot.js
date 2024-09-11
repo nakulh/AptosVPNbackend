@@ -8,9 +8,9 @@ import { installPiVpn } from '../accessors/piVpn.js';
 export async function initBoot() {
 
     if (!isWireGuardInstalled()) {
-        console.log('installing vpn server');
+        console.log('installing vpn server, this will take a while...');
         try {
-            installPiVpn();
+            await installPiVpn();
         } catch (err) {
             console.error("Failed to install PiVPN:", err);
             console.error("Please install PiVPN manually from https://docs.pivpn.io/install/ before proceeding");
