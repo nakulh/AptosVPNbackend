@@ -43,6 +43,7 @@ export function getPiVpnVersion() {
         exec('pivpn -v', (error, stdout, stderr) => {
             if(error) {
                 console.log(error);
+                console.log("Relax above error is EXPECTED");
                 reject(error);
             };
             if (stderr) {
