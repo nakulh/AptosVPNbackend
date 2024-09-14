@@ -3,7 +3,7 @@ import * as ed from '@noble/ed25519';
 
 export const verifySignature = async (signature, publicKey, transactionHash) => {
     const txHashUint8 = new Uint8Array(transactionHash.split('').map (function (c) { return c.charCodeAt (0); }));
-    const sigUint8 = new Uint8Array(signature);
+    const sigUint8 = new Uint8Array(byteFromHexStr(signature.substring(2)));
     const publicKeyUint8 = new Uint8Array(byteFromHexStr(publicKey.substring(2)));
     return await ed.verifyAsync(sigUint8, txHashUint8, publicKeyUint8);
 }

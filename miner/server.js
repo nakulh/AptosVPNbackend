@@ -17,10 +17,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/provideAccess', async (req, res) => {
-    const transactionHash = req.params.transactionHash;
-    const signature = req.params.signature;
-    console.log(transactionHash);
-    console.log(signature);
+    const transactionHash = req.body.transactionHash;
+    const signature = req.body.signature;
     const connectionString = await provideAccess(transactionHash, signature);
     res.send(connectionString);
 });
