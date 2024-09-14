@@ -23,6 +23,7 @@ app.post('/provideAccess', async (req, res) => {
         const connectionString = await provideAccess(transactionHash, signature);
         res.send(connectionString);
     } catch (err) {
+        console.log(err);
         res.status(504).send("invalid request");
     }
     
