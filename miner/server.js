@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import { getAllVPNProviders } from './accessors/ddbAccessor.js';
 import { provideAccess } from './component/provideAccess.js';
 
 const app = express();
