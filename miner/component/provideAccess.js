@@ -8,7 +8,7 @@ const DEPOSIT_EVENT = "0x1::coin::DepositEvent";
 export async function provideAccess(txHash, signature) {
     const transaction = await getTransactionDetails(txHash);
     const accountAddress = getAddressFromPrivateKey(getWalletPrivateKey()); 
-    console.log(transaction);
+    console.log("Got transaction details for " + txHash);
     const publicKey = transaction.signature?.public_key;
     if (transaction.payload.function !== PURCHASE_FUNCTION_NAME) {
         throw new Error("No valid transaction found");
@@ -28,7 +28,7 @@ export async function provideAccess(txHash, signature) {
 async function addNewClient(clientId) {
     const currentClient = getVPNClients();
     if (currentClient[clientId] == undefined) {
-        addVPNClient(clientId);
+        await addVPNClient(clientId);
     }
     return getClientRawConfig(clientId);
 }

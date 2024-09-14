@@ -19,8 +19,13 @@ app.get('/', (req, res) => {
 app.post('/provideAccess', async (req, res) => {
     const transactionHash = req.body.transactionHash;
     const signature = req.body.signature;
-    const connectionString = await provideAccess(transactionHash, signature);
-    res.send(connectionString);
+    try {
+        const connectionString = await provideAccess(transactionHash, signature);
+        res.send(connectionString);
+    } catch (err) {
+        red.status(504).send("invalid request");
+    }
+    
 });
 
 export const startServer = () => {
