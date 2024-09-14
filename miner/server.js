@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.send('Live');
 });
 
-app.get('/provideAccess', async (req, res) => {
+app.post('/provideAccess', async (req, res) => {
     const transactionHash = req.params.transactionHash;
     const signature = req.params.signature;
     console.log(transactionHash);
