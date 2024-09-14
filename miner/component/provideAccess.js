@@ -26,6 +26,7 @@ export async function provideAccess(txHash, signature) {
 }
 
 async function addNewClient(clientId) {
+    clientId = clientId.spice(-15); // ToDo: use complression instead of taking last 15 chars
     const currentClient = getVPNClients();
     if (currentClient[clientId] == undefined) {
         await addVPNClient(clientId);
