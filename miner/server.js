@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import {getAllVPNProviders} from './accessors/ddbAccessor.js';
+import { getAllVPNProviders } from './accessors/ddbAccessor.js';
+import { provideAccess } from './component/provideAccess.js';
 
 const app = express();
 const port = 5000;
@@ -16,10 +17,11 @@ app.get('/', (req, res) => {
     res.send('Live');
 });
 
-app.get('/provideAccess', (req, res) => {
+app.get('/provideAccess', async (req, res) => {
     const transactionHash = req.params.transactionHash;
     const signature = req.params.signature;
-  // check aptos for valid transaction, create wireguard profile and provide encrypted creds to client.
+    const connectionString = await provideAccess(transactionHash, signature);
+    res.send(connectionString);
 });
 
 export const startServer = () => {

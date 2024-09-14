@@ -9,7 +9,7 @@ export async function provideAccess(txHash, signature) {
     const transaction = await getTransactionDetails(txHash);
     const accountAddress = getAddressFromPrivateKey(getWalletPrivateKey()); 
     console.log(transaction);
-    const publicKey = transaction.signature?.publicKey;
+    const publicKey = transaction.signature?.public_key;
     if (transaction.payload.function !== PURCHASE_FUNCTION_NAME) {
         throw new Error("No valid transaction found");
     }

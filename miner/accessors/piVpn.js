@@ -46,7 +46,6 @@ export function getPiVpnVersion() {
                 reject(error);
             };
             if (stderr) {
-                console.log(`stderr: ${stderr}`);
                 reject(new Error(stderr));
                 return;
             }
