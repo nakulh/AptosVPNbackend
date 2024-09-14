@@ -26,7 +26,7 @@ export async function initBoot() {
         privateKey = createNewWallet();
         saveWalletPrivateKey(privateKey);
     }
-    await fundAccountIfPossible(privateKey);
+    //await fundAccountIfPossible(privateKey);
 
     let vpnConfig = getVPNConfiguration();
     if (vpnConfig.vpnObj === undefined || vpnConfig.vpnObj === null || vpnConfig.vpnObj.length === 0) {
