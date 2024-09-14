@@ -49,7 +49,7 @@ export function getPiVpnVersion() {
                 reject(new Error(stderr));
                 return;
             }
-            console.log(`stdout: ${stdout}`);
+            //console.log(`stdout: ${stdout}`);
             resolve(stdout.trim());
         });
     });
