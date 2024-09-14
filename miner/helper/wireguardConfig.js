@@ -2,6 +2,8 @@ import { getVPNClients, addVPNClient as addVPNClientInDB } from '../accessors/db
 import { createClientConfig, deleteClientConfig, getPiVpnVersion} from '../accessors/piVpn.js';
 import dayjs from 'dayjs';
 import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
 export async function checkExpiredVPNConfig() {
     const vpnClients = getVPNClients();
     for (const clientId in vpnClients) {
@@ -24,7 +26,9 @@ export async function addVPNClient(clientId) {
 }
 
 export function getClientRawConfig(clientId) {
-    const fileData = fs.readFileSync(`${process.env.WIREGUARD_CONFIG_PATH}/${clientId}.conf`);
+    const homeDir = os.homedir();
+    const filePath = path.join(homeDir, `${process.env.WIREGUARD_CONFIG_PATH}/${clientId}.conf`);
+    const fileData = fs.readFileSync(filePath);
     return fileData.toString();
 }
 
