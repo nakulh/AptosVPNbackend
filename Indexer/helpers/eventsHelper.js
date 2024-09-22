@@ -11,9 +11,9 @@ const updatedEvent = process.env.CONTRACT + "::vpn_manager::VPNUpdatedEvent";
 const deletedEvent = process.env.CONTRACT + "::vpn_manager::VPNDeletedEvent";
 const vpnProviderObj = process.env.CONTRACT + "::vpn_manager::VpnProvider";
 
-const createdEventOffset = parseInt(process.env.CREATED_OFFSET);
-const updatedEventOffset = parseInt(process.env.UPDATED_OFFSET);
-const deletedEventOffset = parseInt(process.env.DELETED_OFFSET);
+let createdEventOffset = parseInt(process.env.CREATED_OFFSET);
+let updatedEventOffset = parseInt(process.env.UPDATED_OFFSET);
+let deletedEventOffset = parseInt(process.env.DELETED_OFFSET);
 const pageLimit = 20;
 
 export const handleAllEvents = async () => {
@@ -57,12 +57,19 @@ const handleCreated = async (createEvents) => {
         console.log(util.inspect(event, objConfig));
         const ledgerVersion = event.transaction_version;
         const transaction = await aptos.getTransactionByVersion({ ledgerVersion });
-        const objId = "";
+        let objId = "";
         transaction.changes.forEach(change => {
-            if (change.data.type == vpnProviderObj) {
-                objId = change.address;
-                return;
+            console.log("Processing Change");
+            console.log(util.inspect(change, objConfig));
+            try {
+                if (change.data.type == vpnProviderObj) {
+                    objId = change.address;
+                    return;
+                }
+            } catch (err) {
+                //be silent
             }
+            
         });
         const vpnName = event.data.name;
         const vpnPrice = event.data.price;
@@ -93,6 +100,6 @@ const handleDeleted = async (updatedEvents) => {
         console.log("HANDLING DELETED");
         console.log(util.inspect(event, objConfig));
         const objAddress = event.data.objAddress;
-        await deleteVPNProvider(objAddress, vpnAddress);
+        await deleteVPNProvider(objAddress);
     })
 }
