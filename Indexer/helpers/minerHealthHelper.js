@@ -2,12 +2,14 @@ import {getAllVPNProviders} from '../accessors/ddbAccessor.js';
 import {getConnectionString} from '../accessors/minerAccessor.js';
 import {broadcastMinerHealth} from '../accessors/validatorAccessor.js';
 
+const VALIDATOR_IP_LIST = ["https://3.96.190.37:3000"]; // right now we are the only validator, this needs to be made dynamic to introduce more validators
+
 export const checkAndUpdateMinerHealth = async (vpnProvider) => {
     const connectionString = await getConnectionString(vpnProvider.address);
     if (connectionString) {
         console.log(vpnProvider, " is Healthy");
     } else {
-        await broadcastMinerHealth([], 1, vpnProvider.objectId); // broadcasts itself too.
+        await broadcastMinerHealth(VALIDATOR_IP_LIST, 1, vpnProvider.objectId); // broadcasts itself too. Adds 1 fault count for this miner
     }
 }
 

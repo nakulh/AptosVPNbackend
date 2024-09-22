@@ -19,7 +19,7 @@ const pageLimit = 20;
 export const handleAllEvents = async () => {
     const createEvents = await aptos.getModuleEventsByEventType({ eventType: createdEvent, options: {offset: createdEventOffset, limit: pageLimit}});
     createdEventOffset += createEvents.length();
-    if (createEvents.length > 0) {
+    if (createEvents.length() > 0) {
         console.log("got a newly created VPN provider");
         console.log(createEvents);
         console.log("New offset is " + createdEventOffset);
@@ -30,7 +30,7 @@ export const handleAllEvents = async () => {
 
     const updateEvents = await aptos.getModuleEventsByEventType({ eventType: updatedEvent, options: {offset: updatedEventOffset, limit: pageLimit}});
     updatedEventOffset += updateEvents.length();
-    if (updateEvents.length > 0) {
+    if (updateEvents.length() > 0) {
         console.log("got a newly updated VPN provider");
         console.log(createEvents);
         console.log("New offset is " + updatedEventOffset);
@@ -41,7 +41,7 @@ export const handleAllEvents = async () => {
 
     const deleteEvents = await aptos.getModuleEventsByEventType({ eventType: deletedEvent, options: {offset: deletedEventOffset, limit: pageLimit}});
     deletedEventOffset += deleteEvents.length();
-    if (deleteEvents.length > 0) {
+    if (deleteEvents.length() > 0) {
         console.log("got a newly deleted VPN provider");
         console.log(createEvents);
         console.log("New offset is " + deletedEventOffset);
