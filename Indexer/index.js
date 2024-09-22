@@ -5,11 +5,10 @@ const objConfig = {showHidden: false, depth: null, colors: true};
 import { startServer } from './server.js';
 import { handleAllEvents } from './helpers/eventsHelper.js';
 
-//startServer();
+startServer();
 
 setInterval(async () => {
     await handleAllEvents();
 }, 5 * 60 * 1000);
 
 console.log("I will listen to Aptos Blockchain and build an index in DynamoDB");
-await handleAllEvents();
