@@ -30,7 +30,7 @@ export const deleteVpnProviderIfApplicable = async () => {
     for (const faultyProvider of faultyProviders) {
         await deleteVpnProvider(faultyProvider.address);
     }
-}
+}//128009733
 
 setInterval(checkRandomVpnProvider, 600000); // Check health every minute
 setInterval(deleteVpnProviderIfApplicable, 600000); // Delete misbehaving providers
