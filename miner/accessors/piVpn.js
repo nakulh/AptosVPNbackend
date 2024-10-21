@@ -68,7 +68,6 @@ export function installPiVpn() {
                 reject(new Error(stderr));
                 return;
             }
-            console.log(`stdout: ${stdout}`);
             exec('./accessors/piVPNInstall.sh --unattended ./accessors/piVPNWireguard.conf', (error, stdout, stderr) => {
                 if(error) {
                     console.log(error);
@@ -79,7 +78,7 @@ export function installPiVpn() {
                     reject(new Error(stderr));
                     return;
                 }
-                console.log(`stdout: ${stdout}`);
+                console.log(`${stdout}`);
                 resolve(stdout);
             });
         });
